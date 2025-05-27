@@ -1,12 +1,28 @@
-.home-container {
+.menu-container {
+  padding: 20px;
   text-align: center;
-  margin-top: 50px;
 }
 
-.home-container h1 {
+.menu-container h1 {
   color: #2c3e50;
 }
 
-.home-container p {
-  color: #555;
+.menu-container nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.menu-container nav ul li {
+  display: inline-block;
+  margin: 0 15px;
+}
+
+.menu-container nav ul li a {
+  text-decoration: none;
+  color: #3498db;
+  font-weight: bold;
+}
+
+.menu-container nav ul li a:hover {
+  text-decoration: underline;
 }

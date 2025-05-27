@@ -1,0 +1,139 @@
+.header-container {
+  background-color: #0f1114;
+  padding: 0 20px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+/* Ícone hamburguer */
+.menu-toggle {
+  display: none;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* Container da navegação */
+.nav-container {
+  display: flex;
+  align-items: center;
+}
+
+.nav-menu {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-menu li {
+  position: relative;
+}
+
+.nav-menu li a,
+.nav-menu li span {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 10px;
+  transition: background-color 0.3s ease;
+  display: block;
+}
+
+.nav-menu li a:hover,
+.nav-menu li span:hover {
+  background-color: #273746;
+  border-radius: 4px;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #2f3e4e;
+  top: 45px;
+  left: 0;
+  border-radius: 4px;
+  min-width: 180px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu li a {
+  padding: 10px 15px;
+}
+
+.login-icon {
+  margin-left: 20px;
+}
+
+.login-icon a {
+  color: white;
+  transition: transform 0.2s ease;
+}
+
+.login-icon a:hover {
+  transform: scale(1.1);
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-container {
+    position: absolute;
+    top: 64px;
+    left: 0;
+    width: 100%;
+    background-color: #1e2a38;
+    display: none;
+    flex-direction: column;
+  }
+
+  .nav-container.open {
+    display: flex;
+  }
+
+  .nav-menu {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .nav-menu li {
+    width: 100%;
+    border-top: 1px solid #273746;
+  }
+
+  .nav-menu li a,
+  .nav-menu li span {
+    padding: 15px;
+  }
+
+  .dropdown-menu {
+    position: static;
+    background-color: #34495e;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+}
