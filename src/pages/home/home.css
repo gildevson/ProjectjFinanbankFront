@@ -1,28 +1,396 @@
-.menu-container {
-  padding: 20px;
+/* src/pages/home/home.css */
+
+/* Variáveis CSS Globais (movidas para cá diretamente) */
+:root {
+  /* Cores de Marca */
+  --primary-color: #1A73E8; /* Azul principal do Google, moderno e vibrante */
+  --primary-dark: #0F4C81; /* Azul mais escuro para estados de hover/ativo */
+  --secondary-color: #00BBDC; /* Ciano/Turquesa, bom para acentuações discretas ou destaques menores */
+  --accent-color: #FF5722; /* Laranja vibrante para alertas ou CTAs */
+
+  /* Cores de Texto */
+  --text-color-dark: #212529; /* Praticamente preto, alto contraste */
+  --text-color-light: #6C757D; /* Cinza médio, para textos secundários ou subtítulos */
+
+  /* Cores de Fundo e Elementos */
+  --white: #FFFFFF;
+  --off-white: #F8F9FA; /* Branco acinzentado, menos harsh que branco puro */
+  --gray-light: #E9ECEF; /* Cinza muito claro, ideal para fundos de hover */
+  --border-color: #DEE2E6; /* Cinza claro para bordas e divisores */
+
+  /* Sombras */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.06); /* Sombra mais leve para elementos menores */
+  --shadow-md: 0 6px 16px rgba(0, 0, 0, 0.1); /* Sombra padrão para cards/dropdowns */
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15); /* Sombra para elementos flutuantes importantes */
+
+  /* Border Radius */
+  --border-radius-xs: 2px;
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+
+  /* Transições */
+  --transition-short: 0.15s ease-out; /* Para reações rápidas (hover) */
+  --transition-medium: 0.3s ease-in-out; /* Para transições de menu/elementos */
+  --transition-long: 0.5s ease; /* Para animações mais suaves */
+
+  /* Espaçamento */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+
+  /* Alturas de componentes (para cálculos em min-height, etc.) */
+  --header-height: 70px; /* Altura estimada do seu Header */
+  --footer-height: 200px; /* Altura estimada do seu Footer */
+}
+
+/* Estilo para o container principal da página Home */
+.home-container {
+  /* Layout Flexbox para centralizar o conteúdo */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centraliza horizontalmente */
+  /* justify-content: center; Removido para permitir que o conteúdo se espalhe verticalmente */
+
+  /* Garante que a seção ocupe a altura restante da tela, empurrando o footer para baixo.
+     Ajuste '70px' para a altura real do seu Header e '200px' para a altura do seu Footer. */
+  min-height: calc(100vh - var(--header-height, 70px) - var(--footer-height, 200px));
+  
+  padding: var(--spacing-lg) var(--spacing-md); /* Espaçamento interno em todas as direções */
+  text-align: center; /* Centraliza o texto dentro do container */
+
+  /* Fundo com gradiente sutil para um visual moderno */
+  background: linear-gradient(135deg, var(--off-white) 0%, color-mix(in srgb, var(--primary-color) 10%, var(--off-white)) 100%);
+}
+
+/* Estilo para o título principal (h1) */
+.home-container h1 {
+  color: var(--primary-dark); /* Cor escura para o título */
+  font-size: 2.8rem; /* Tamanho da fonte grande para destaque */
+  margin-bottom: var(--spacing-md); /* Espaçamento abaixo do título */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15); /* Sombra suave para o texto */
+  font-weight: 700; /* Negrito para o título */
+}
+
+/* Estilo para o parágrafo de descrição (p) */
+.home-container p {
+  color: var(--text-color-light); /* Cor mais clara para o parágrafo */
+  font-size: 1.15rem; /* Tamanho da fonte para o parágrafo */
+  line-height: 1.8; /* Altura da linha para melhor legibilidade */
+  max-width: 700px; /* Largura máxima para o parágrafo, evita linhas muito longas */
+  margin-bottom: var(--spacing-lg); /* Espaçamento abaixo do parágrafo */
+}
+
+/* ------------------------------------------------------------------------- */
+/* Seção de Recursos (Features Section) */
+/* ------------------------------------------------------------------------- */
+.features-section {
+  width: 100%;
+  max-width: 1200px;
+  padding: var(--spacing-lg) var(--spacing-md);
+  margin-top: var(--spacing-lg);
+  background-color: var(--white); /* Fundo branco para a seção */
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md); /* Sombra para destacar a seção */
+}
+
+.features-section h2 {
+  color: var(--primary-color);
+  font-size: 2rem;
+  margin-bottom: var(--spacing-lg);
+  text-align: center;
+  font-weight: 600;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Layout responsivo em grade */
+  gap: var(--spacing-md); /* Espaçamento entre os itens da grade */
+}
+
+.feature-item {
+  background-color: var(--off-white);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+  text-align: left; /* Alinha o texto à esquerda dentro do item */
+  transition: transform var(--transition-short), box-shadow var(--transition-short);
+}
+
+.feature-item:hover {
+  transform: translateY(-5px); /* Efeito de elevação no hover */
+  box-shadow: var(--shadow-md);
+}
+
+.feature-item h3 {
+  color: var(--text-color-dark);
+  font-size: 1.25rem;
+  margin-bottom: var(--spacing-xs);
+  font-weight: 600;
+}
+
+.feature-item p {
+  color: var(--text-color-light);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 0; /* Remove margem inferior padrão */
+}
+
+/* ------------------------------------------------------------------------- */
+/* Seção de Chamada para Ação (CTA Section) */
+/* ------------------------------------------------------------------------- */
+.cta-section {
+  width: 100%;
+  max-width: 1000px;
+  padding: var(--spacing-lg) var(--spacing-md);
+  margin-top: var(--spacing-lg);
+  background: linear-gradient(45deg, var(--primary-color), var(--primary-dark)); /* Gradiente de cor primária */
+  color: var(--white);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg); /* Sombra mais forte para destaque */
   text-align: center;
 }
 
-.menu-container h1 {
-  color: #2c3e50;
+.cta-section h2 {
+  color: var(--white);
+  font-size: 2.2rem;
+  margin-bottom: var(--spacing-md);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-.menu-container nav ul {
-  list-style-type: none;
-  padding: 0;
+.cta-section p {
+  color: var(--off-white);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto var(--spacing-lg) auto; /* Centraliza o parágrafo */
 }
 
-.menu-container nav ul li {
-  display: inline-block;
-  margin: 0 15px;
+.cta-button {
+  background-color: var(--secondary-color); /* Cor de destaque para o botão */
+  color: var(--white);
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--border-radius-md);
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition-short), transform var(--transition-short), box-shadow var(--transition-short);
+  box-shadow: var(--shadow-md);
+  text-decoration: none; /* Para usar com <Link> ou <a> */
+  display: inline-block; /* Para que padding e margin funcionem bem */
 }
 
-.menu-container nav ul li a {
-  text-decoration: none;
-  color: #3498db;
-  font-weight: bold;
+.cta-button:hover {
+  background-color: color-mix(in srgb, var(--secondary-color) 80%, var(--primary-dark)); /* Escurece um pouco no hover */
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
 }
 
-.menu-container nav ul li a:hover {
-  text-decoration: underline;
+/* ------------------------------------------------------------------------- */
+/* Seção de Estatísticas (Stats Section) */
+/* ------------------------------------------------------------------------- */
+.stats-section {
+  width: 100%;
+  max-width: 1200px;
+  padding: var(--spacing-lg) var(--spacing-md);
+  margin-top: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg); /* Espaçamento inferior para o footer */
+  background-color: var(--white);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+  text-align: center;
+}
+
+.stats-section h2 {
+  color: var(--primary-dark);
+  font-size: 2rem;
+  margin-bottom: var(--spacing-lg);
+  font-weight: 600;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Layout responsivo em grade */
+  gap: var(--spacing-md);
+}
+
+.stat-item {
+  background-color: var(--gray-light);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: background-color var(--transition-short), transform var(--transition-short);
+}
+
+.stat-item:hover {
+  background-color: color-mix(in srgb, var(--gray-light) 90%, var(--primary-color)); /* Leve tom da cor primária no hover */
+  transform: translateY(-3px);
+}
+
+.stat-item h3 {
+  color: var(--primary-color); /* Cor primária para os números */
+  font-size: 2.5rem; /* Tamanho grande para os números */
+  margin-bottom: var(--spacing-xs);
+  font-weight: 700;
+}
+
+.stat-item p {
+  color: var(--text-color-dark);
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
+/* ------------------------------------------------------------------------- */
+/* Responsividade Geral */
+/* ------------------------------------------------------------------------- */
+
+/* Para telas menores que 992px (tablets em modo paisagem e alguns laptops menores) */
+@media (max-width: 992px) {
+  .home-container {
+    padding: var(--spacing-md) var(--spacing-sm);
+  }
+
+  .home-container h1 {
+    font-size: 2.4rem;
+  }
+
+  .home-container p {
+    font-size: 1.05rem;
+  }
+
+  .features-section,
+  .cta-section,
+  .stats-section {
+    padding: var(--spacing-md);
+    margin-top: var(--spacing-md);
+  }
+
+  .features-section h2,
+  .cta-section h2,
+  .stats-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .features-grid,
+  .stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Ajusta largura mínima para mobile */
+    gap: var(--spacing-sm);
+  }
+
+  .feature-item h3 {
+    font-size: 1.15rem;
+  }
+
+  .feature-item p {
+    font-size: 0.9rem;
+  }
+
+  .cta-section p {
+    font-size: 1rem;
+  }
+
+  .cta-button {
+    font-size: 1rem;
+    padding: var(--spacing-xs) var(--spacing-md);
+  }
+
+  .stat-item h3 {
+    font-size: 2rem;
+  }
+
+  .stat-item p {
+    font-size: 0.9rem;
+  }
+}
+
+/* Para telas menores que 768px (tablets em modo retrato e celulares grandes) */
+@media (max-width: 768px) {
+  .home-container h1 {
+    font-size: 2rem;
+  }
+
+  .home-container p {
+    font-size: 1rem;
+  }
+
+  .features-section h2,
+  .cta-section h2,
+  .stats-section h2 {
+    font-size: 1.6rem;
+  }
+
+  .features-grid,
+  .stats-grid {
+    grid-template-columns: 1fr; /* Uma coluna por padrão em telas muito pequenas */
+    gap: var(--spacing-md); /* Mantém o espaçamento entre itens empilhados */
+  }
+
+  .feature-item,
+  .stat-item {
+    text-align: center; /* Centraliza o texto quando empilhado */
+  }
+
+  .feature-item h3 {
+    font-size: 1.1rem;
+  }
+
+  .feature-item p {
+    font-size: 0.85rem;
+  }
+
+  .cta-section p {
+    font-size: 0.95rem;
+  }
+
+  .cta-button {
+    font-size: 0.95rem;
+  }
+
+  .stat-item h3 {
+    font-size: 1.8rem;
+  }
+}
+
+/* Para telas menores que 480px (celulares pequenos) */
+@media (max-width: 480px) {
+  .home-container {
+    padding: var(--spacing-sm);
+  }
+
+  .home-container h1 {
+    font-size: 1.75rem;
+  }
+
+  .home-container p {
+    font-size: 0.9rem;
+  }
+
+  .features-section h2,
+  .cta-section h2,
+  .stats-section h2 {
+    font-size: 1.4rem;
+  }
+
+  .feature-item h3 {
+    font-size: 1rem;
+  }
+
+  .feature-item p {
+    font-size: 0.8rem;
+  }
+
+  .cta-section p {
+    font-size: 0.9rem;
+  }
+
+  .cta-button {
+    font-size: 0.9rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+
+  .stat-item h3 {
+    font-size: 1.6rem;
+  }
 }

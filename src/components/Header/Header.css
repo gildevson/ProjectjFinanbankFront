@@ -1,42 +1,119 @@
+/* Variáveis de Cores e Estilos Globais */
+:root {
+  /* Cores de Marca */
+  --primary-color: #1A73E8; /* Azul principal do Google, moderno e vibrante */
+  --primary-dark: #0F4C81; /* Azul mais escuro para estados de hover/ativo */
+  --secondary-color: #00BBDC; /* Ciano/Turquesa, bom para acentuações discretas ou destaques menores */
+  --accent-color: #FF5722; /* Laranja vibrante para alertas ou CTAs */
+
+  /* Cores de Texto */
+  --text-color-dark: #212529; /* Praticamente preto, alto contraste */
+  --text-color-light: #6C757D; /* Cinza médio, para textos secundários ou subtítulos */
+
+  /* Cores de Fundo e Elementos */
+  --white: #FFFFFF;
+  --off-white: #F8F9FA; /* Branco acinzentado, menos harsh que branco puro */
+  --gray-light: #E9ECEF; /* Cinza muito claro, ideal para fundos de hover */
+  --border-color: #DEE2E6; /* Cinza claro para bordas e divisores */
+
+  /* Sombras */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.06); /* Sombra mais leve para elementos menores */
+  --shadow-md: 0 6px 16px rgba(0, 0, 0, 0.1); /* Sombra padrão para cards/dropdowns */
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.15); /* Sombra para elementos flutuantes importantes */
+
+  /* Border Radius */
+  --border-radius-xs: 2px;
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+
+  /* Transições */
+  --transition-short: 0.15s ease-out; /* Para reações rápidas (hover) */
+  --transition-medium: 0.3s ease-in-out; /* Para transições de menu/elementos */
+  --transition-long: 0.5s ease; /* Para animações mais suaves */
+
+  /* Espaçamento */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+}
+
+/* ------------------------------------------------------------------------- */
+/* Base e Elementos do Header */
+/* ------------------------------------------------------------------------- */
 .header-container {
-  background-color: #0f1114;
-  padding: 0 20px;
-  height: 90px;
+  background: linear-gradient(to right, var(--white), var(--off-white));
+  padding: var(--spacing-sm) var(--spacing-lg); /* Usando variáveis de espaçamento */
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  color: white;
+  align-items: center;
+  box-shadow: var(--shadow-sm); /* Sombra mais sutil no header */
   position: sticky;
   top: 0;
-  z-index: 999;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  z-index: 1000;
+  flex-wrap: wrap;
+  min-height: 70px;
 }
 
 .logo {
-  font-size: 22px;
-  font-weight: bold;
-  white-space: nowrap;
+  font-size: 1.8rem;
+  font-weight: 300;
+  letter-spacing: -0.03em; /* Mais preciso que -0.5px */
 }
 
-/* Ícone hamburguer */
+.logo a {
+  text-decoration: none;
+  color: var(--primary-dark);
+  transition: color var(--transition-short);
+}
+
+.logo a:hover {
+  color: var(--primary-color);
+}
+
+.logo strong {
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+/* ------------------------------------------------------------------------- */
+/* Botão de Menu para Mobile (Hamburger/X) */
+/* ------------------------------------------------------------------------- */
 .menu-toggle {
   display: none;
-  font-size: 22px;
+  font-size: 2rem;
   cursor: pointer;
+  color: var(--primary-color);
+  z-index: 1001;
+  padding: var(--spacing-xs); /* Usando variável */
+  border-radius: var(--border-radius-sm);
+  transition: background-color var(--transition-short), color var(--transition-short), transform var(--transition-short);
 }
 
-/* Container da navegação */
+.menu-toggle:hover {
+  background-color: var(--gray-light);
+  color: var(--primary-dark);
+  transform: scale(1.05); /* Leve zoom no hover */
+}
+
+/* ------------------------------------------------------------------------- */
+/* Container da Navegação Principal (Desktop e Mobile) */
+/* ------------------------------------------------------------------------- */
 .nav-container {
+  flex-grow: 1;
   display: flex;
-  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-medium); /* Transição para o slide do menu */
 }
 
 .nav-menu {
   list-style: none;
   display: flex;
-  gap: 25px;
   margin: 0;
   padding: 0;
+  align-items: center;
+  gap: var(--spacing-md); /* Espaçamento entre itens */
 }
 
 .nav-menu li {
@@ -45,95 +122,402 @@
 
 .nav-menu li a,
 .nav-menu li span {
-  color: white;
   text-decoration: none;
+  color: var(--text-color-dark);
   font-weight: 500;
-  padding: 10px;
-  transition: background-color 0.3s ease;
+  padding: 0.75rem 0.5rem;
   display: block;
+  transition: color var(--transition-short), transform var(--transition-short);
+  cursor: pointer;
+  position: relative;
+  outline: none; /* Remove outline padrão do navegador para usar :focus-visible */
+}
+
+/* Estilo de foco aprimorado para acessibilidade */
+.nav-menu li a:focus-visible,
+.nav-menu li span:focus-visible {
+  outline: 2px solid var(--primary-color); /* Borda clara para acessibilidade */
+  outline-offset: 2px; /* Afasta a borda do texto */
+  border-radius: var(--border-radius-xs); /* Borda levemente arredondada */
+}
+
+
+.nav-menu li a::after,
+.nav-menu li span::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%; /* Começa no centro */
+  transform: translateX(-50%); /* Centraliza */
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-color);
+  transition: width var(--transition-short) ease-out;
+}
+
+.nav-menu li a:hover::after,
+.nav-menu li span:hover::after,
+.nav-menu li a:focus-visible::after, /* Aplica no foco visível também */
+.nav-menu li span:focus-visible::after {
+  width: 100%;
 }
 
 .nav-menu li a:hover,
 .nav-menu li span:hover {
-  background-color: #273746;
-  border-radius: 4px;
+  color: var(--primary-color);
+  transform: translateY(-2px);
 }
 
+/* ------------------------------------------------------------------------- */
+/* Dropdown Styling */
+/* ------------------------------------------------------------------------- */
 .dropdown-menu {
-  display: none;
+  list-style: none;
   position: absolute;
-  background-color: #2f3e4e;
-  top: 45px;
+  top: calc(100% + var(--spacing-xs)); /* Usa variável para espaçamento */
   left: 0;
-  border-radius: 4px;
-  min-width: 180px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  background-color: var(--white);
+  box-shadow: var(--shadow-md); /* Sombra padrão */
+  border-radius: var(--border-radius-md);
+  min-width: 200px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(var(--spacing-md)); /* Deslocamento inicial */
+  transition: opacity var(--transition-medium), transform var(--transition-medium), visibility var(--transition-medium);
+  z-index: 999;
+  padding: var(--spacing-xs) 0;
+  border: 1px solid var(--border-color);
 }
 
-.dropdown:hover .dropdown-menu {
-  display: block;
+.dropdown.active .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-menu li {
+  margin: 0;
 }
 
 .dropdown-menu li a {
-  padding: 10px 15px;
+  padding: 0.8rem var(--spacing-md); /* Padding interno aprimorado */
+  white-space: nowrap;
+  color: var(--text-color-dark);
+  font-weight: 400;
+  transition: background-color var(--transition-short), color var(--transition-short);
 }
 
+.dropdown-menu li a:hover,
+.dropdown-menu li a:focus-visible { /* Foco também nos itens do dropdown */
+  background-color: var(--gray-light);
+  color: var(--primary-color);
+  outline: none; /* Remove outline padrão no hover */
+}
+
+.dropdown-arrow {
+  border: solid var(--text-color-light);
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  margin-left: var(--spacing-xs); /* Usando variável */
+  transition: transform var(--transition-short), border-color var(--transition-short);
+}
+
+.dropdown.active .dropdown-arrow {
+  transform: rotate(-135deg);
+  border-color: var(--primary-color);
+}
+
+/* ------------------------------------------------------------------------- */
+/* Ícone de Login/Admin */
+/* ------------------------------------------------------------------------- */
 .login-icon {
-  margin-left: 20px;
+  margin-left: var(--spacing-lg); /* Usando variável */
+  display: flex;
+  align-items: center;
 }
 
 .login-icon a {
-  color: white;
-  transition: transform 0.2s ease;
+  color: var(--primary-color);
+  transition: color var(--transition-short), transform var(--transition-short), background-color var(--transition-short);
+  padding: var(--spacing-xs);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none; /* Remove outline padrão */
 }
 
 .login-icon a:hover {
+  color: var(--primary-dark);
   transform: scale(1.1);
+  background-color: var(--gray-light);
 }
 
-/* RESPONSIVO */
-@media (max-width: 768px) {
-  .menu-toggle {
-    display: block;
+.login-icon a:focus-visible { /* Foco para o ícone de login */
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+  background-color: var(--gray-light); /* Fundo sutil no foco */
+}
+
+/* ------------------------------------------------------------------------- */
+/* Ajustes Responsivos */
+/* ------------------------------------------------------------------------- */
+@media (max-width: 992px) {
+  .header-container {
+    padding: var(--spacing-sm) var(--spacing-md); /* Ajusta padding para mobile */
+    min-height: 60px;
   }
 
   .nav-container {
-    position: absolute;
-    top: 64px;
+    position: fixed;
+    top: 0;
     left: 0;
     width: 100%;
-    background-color: #1e2a38;
-    display: none;
+    height: 100%;
+    background-color: var(--white);
     flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 70px; /* Espaço para o header que fica fixo */
+    transform: translateX(-100%);
+    transition: transform var(--transition-medium);
+    box-shadow: none;
+    overflow-y: auto;
+    /* Adiciona uma transição sutil para a borda do menu mobile */
+    border-right: 2px solid transparent; /* Bordar lateral invisível */
   }
 
   .nav-container.open {
-    display: flex;
+    transform: translateX(0);
+    border-right-color: var(--primary-color); /* Borda lateral visível quando aberto */
   }
 
   .nav-menu {
     flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+    padding: var(--spacing-sm) 0;
     gap: 0;
   }
 
   .nav-menu li {
     width: 100%;
-    border-top: 1px solid #273746;
+    margin: 0;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .nav-menu li:last-child {
+    border-bottom: none;
   }
 
   .nav-menu li a,
   .nav-menu li span {
-    padding: 15px;
+    padding: var(--spacing-md) var(--spacing-md); /* Padding uniforme */
+    width: 100%;
+    color: var(--text-color-dark);
+    transform: none; /* Remove elevação no mobile */
+    outline: none; /* Remove outline padrão no mobile */
+  }
+
+  .nav-menu li a:hover,
+  .nav-menu li span:hover {
+    background-color: var(--gray-light);
+    color: var(--primary-color);
+  }
+
+  .nav-menu li a:focus-visible, /* Mantém foco visível para acessibilidade no mobile */
+  .nav-menu li span:focus-visible {
+    background-color: var(--gray-light);
+    color: var(--primary-color);
+    outline: 2px solid var(--primary-color);
+    outline-offset: -2px; /* Para que o outline fique por dentro do padding */
+  }
+
+  .nav-menu li a::after,
+  .nav-menu li span::after {
+    display: none; /* Remove underline animado no mobile */
+  }
+
+  .menu-toggle {
+    display: block;
   }
 
   .dropdown-menu {
     position: static;
-    background-color: #34495e;
     box-shadow: none;
     border-radius: 0;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    background-color: var(--off-white);
+    width: 100%;
+    padding: 0;
+    border: none;
   }
 
-  .dropdown:hover .dropdown-menu {
-    display: block;
+  .dropdown-menu li a {
+    padding-left: calc(var(--spacing-md) + var(--spacing-sm)); /* Indentação com variáveis */
+  }
+
+  .dropdown-menu li a:focus-visible { /* Foco para itens de dropdown no mobile */
+    background-color: var(--gray-light);
+    color: var(--primary-color);
+    outline: 2px solid var(--primary-color);
+    outline-offset: -2px;
+  }
+
+
+  .dropdown-arrow {
+    transform: rotate(90deg);
+  }
+
+  .dropdown.active .dropdown-arrow {
+    transform: rotate(-90deg);
+  }
+
+  .login-icon {
+    position: absolute;
+    right: var(--spacing-md);
+    top: 0.8rem;
+    z-index: 1002;
+    margin-left: 0;
+  }
+
+  .login-icon a:focus-visible { /* Foco para o ícone de login no mobile */
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-container {
+    padding: var(--spacing-sm) var(--spacing-sm);
+  }
+
+  .logo {
+    font-size: 1.6rem;
+  }
+
+  .menu-toggle {
+    font-size: 1.8rem;
+  }
+
+  .login-icon {
+    right: var(--spacing-sm);
+    top: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    font-size: 1.4rem;
+  }
+}
+
+
+/* ... (Seu CSS anterior) ... */
+
+/* ------------------------------------------------------------------------- */
+/* Ícone de Login/Admin */
+/* ------------------------------------------------------------------------- */
+
+/* Estilo padrão para desktop */
+.login-icon {
+  margin-left: var(--spacing-lg);
+  display: flex; /* Mantenha o flex para alinhar o ícone */
+  align-items: center;
+}
+
+.login-icon a {
+  color: var(--primary-color);
+  transition: color var(--transition-short), transform var(--transition-short), background-color var(--transition-short);
+  padding: var(--spacing-xs);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+}
+
+.login-icon a:hover {
+  color: var(--primary-dark);
+  transform: scale(1.1);
+  background-color: var(--gray-light);
+}
+
+.login-icon a:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+  background-color: var(--gray-light);
+}
+
+/* NOVO: Estilos para o item de login no menu mobile */
+.mobile-login-item {
+  display: none; /* Escondido por padrão (desktop) */
+}
+
+.mobile-login-item a {
+  display: flex; /* Para alinhar o ícone e o texto */
+  align-items: center;
+  gap: var(--spacing-sm); /* Espaçamento entre ícone e texto */
+}
+
+.mobile-login-item a svg { /* Estilo específico para o ícone SVG dentro do item mobile */
+  color: var(--primary-color);
+}
+
+/* ------------------------------------------------------------------------- */
+/* Ajustes Responsivos */
+/* ------------------------------------------------------------------------- */
+@media (max-width: 992px) {
+  /* ... (Seu CSS para .header-container, .nav-container, .nav-menu, etc.) ... */
+
+  /* Oculta o ícone de login do header no mobile */
+  .login-icon {
+    display: none; /* IMPEDE QUE O ÍCONE DE LOGIN DO HEADER APAREÇA NO MOBILE */
+  }
+
+  /* Exibe o item de login dentro do menu mobile */
+  .mobile-login-item {
+    display: block; /* EXIBE O ITEM DE LOGIN NO MOBILE */
+    width: 100%; /* Garante que ocupe a largura total */
+    border-bottom: 1px solid var(--border-color); /* Mantém o divisor */
+    margin: 0; /* Remove margens extras */
+  }
+
+  .mobile-login-item:last-child { /* Se for o último item */
+    border-bottom: none;
+  }
+
+  .mobile-login-item a {
+    padding: var(--spacing-md) var(--spacing-md); /* Padding igual aos outros itens do menu */
+    color: var(--text-color-dark);
+  }
+
+  .mobile-login-item a:hover {
+    background-color: var(--gray-light);
+    color: var(--primary-color);
+  }
+
+  .mobile-login-item a:focus-visible {
+    background-color: var(--gray-light);
+    color: var(--primary-color);
+    outline: 2px solid var(--primary-color);
+    outline-offset: -2px;
+  }
+
+  /* ... (Resto do seu CSS para media queries) ... */
+}
+
+.mobile-login-item {
+  display: none; /* Escondido por padrão (desktop) */
+}
+
+@media (max-width: 992px) {
+  .mobile-login-item {
+    display: block; /* EXIBE O ITEM DE LOGIN NO MOBILE */
+    /* ... outros estilos ... */
   }
 }
