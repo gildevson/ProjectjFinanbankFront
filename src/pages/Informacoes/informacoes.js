@@ -5,7 +5,7 @@ function Informacoes() {
   const [dados, setDados] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:3001/api/informacoes')
+    axios.get('http://localhost:3000/api/informacoes')
       .then(res => setDados(res.data))
       .catch(err => console.error(err));
   }, []);

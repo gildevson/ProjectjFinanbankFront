@@ -4,8 +4,8 @@ import './home.css'; // Importa o arquivo de estilos para esta página
 function Home() {
   return (
     <div className="home-container">
-      <h1>Bem-vindo ao Nosso Sistema</h1>
-      <p>Este sistema apresenta informações do banco de dados PostgreSQL, oferecendo uma solução robusta e segura para a gestão de suas operações financeiras.</p>
+      <h1>Consulte sua remessa sem ficar olhando Layout em PDF</h1>
+      <p>Pare de perder tempo navegando por layouts em PDF. Com nossa nova funcionalidade, você acessa as informações da sua remessa direto na tela, de forma rápida, prática e sem complicações.</p>
 
       <section className="features-section">
         <h2>Recursos Principais</h2>
@@ -40,15 +40,15 @@ function Home() {
         <div className="stats-grid">
           <div className="stat-item">
             <h3>+10.000</h3>
-            <p>Transações Processadas</p>
+            <p>Remessas Processadas</p>
           </div>
           <div className="stat-item">
             <h3>99.9%</h3>
             <p>Taxa de Sucesso</p>
           </div>
           <div className="stat-item">
-            <h3>+500</h3>
-            <p>Clientes Satisfeitos</p>
+            <h3>+50</h3>
+            <p>Usuarios Satisfeitos</p>
           </div>
         </div>
       </section>
