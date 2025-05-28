@@ -69,17 +69,7 @@ function Header() {
 
           <li><Link to="/" onClick={closeMenu}>Início</Link></li>
 
-          <li className={`dropdown ${dropdownOpen === 'layouts' ? 'active' : ''}`}>
-            <span onClick={() => handleDropdownToggle('layouts')}>
-              Layouts de Banco <i className="dropdown-arrow"></i>
-            </span>
-            <ul className="dropdown-menu">
-              <li><Link to="/layout/bradesco" onClick={closeMenu}>Bradesco</Link></li>
-              <li><Link to="/layout/itau" onClick={closeMenu}>Itaú</Link></li>
-              <li><Link to="/layout/bb" onClick={closeMenu}>Banco do Brasil</Link></li>
-            </ul>
-          </li>
-
+          <li><Link to="/Layouts" onClick={closeMenu}>Layouts</Link></li>
           <li><Link to="/validadores" onClick={closeMenu}>Validadores de Banco</Link></li>
           <li><Link to="/ocorrencias" onClick={closeMenu}>Ocorrência Bancária</Link></li>
           <li><Link to="/motivos" onClick={closeMenu}>Motivos</Link></li>

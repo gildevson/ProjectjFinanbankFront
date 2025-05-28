@@ -4,6 +4,7 @@ import Header from './components/Header/header'; // Corrigido: 'Header' com H ma
 import Footer from './components/Footer/Footer'; // Corrigido: 'Footer' com F maiúsculo
 import Informacoes from './pages/Informacoes/informacoes';
 import Home from './pages/home/home';
+import LayoutsBanco from './pages/layoutsBancos/layoutsBancos';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <main className="app-main-content">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/Layouts" element={<LayoutsBanco/>} />
           <Route path="/informacoes" element={<Informacoes />} />
         </Routes>
       </main>
