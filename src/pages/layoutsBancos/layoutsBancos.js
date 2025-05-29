@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './layoutsBancos.css'; // Não esqueça de importar seu CSS
+//import  {ResumeButton} from ''
+
 
 function LayoutsBanco() {
   const [layouts, setLayouts] = useState([]);
@@ -53,50 +55,6 @@ function LayoutsBanco() {
         dataCriacao: '2022-05-20',
         ultimaAtualizacao: '2023-01-05',
       },
-      {
-        id: 'bra-layout-001',
-        banco: 'Bradesco',
-        nome: 'Boleto Bradesco Padrão V2',
-        descricao: 'Layout atualizado para boletos Bradesco. Incorpora novas regras de registro.',
-        tipo: 'Boleto Bancário',
-        status: 'Ativo',
-        versao: '2.0',
-        dataCriacao: '2024-02-01',
-        ultimaAtualizacao: '2025-01-20',
-      },
-      {
-        id: 'bra-layout-002',
-        banco: 'Bradesco',
-        nome: 'Conciliação Bradesco Cartões',
-        descricao: 'Layout específico para extratos de vendas de cartão de crédito e débito.',
-        tipo: 'Extrato Bancário',
-        status: 'Ativo',
-        versao: '1.2',
-        dataCriacao: '2023-07-10',
-        ultimaAtualizacao: '2024-11-15',
-      },
-      {
-        id: 'bra-layout-003',
-        banco: 'Bradesco',
-        nome: 'Remessa Bradesco Folha Pagamento',
-        descricao: 'Layout para envio de arquivos de folha de pagamento. Alta segurança e criptografia.',
-        tipo: 'Pagamento',
-        status: 'Ativo',
-        versao: '3.0',
-        dataCriacao: '2021-09-01',
-        ultimaAtualizacao: '2024-09-01',
-      },
-      {
-        id: 'bra-layout-004',
-        banco: 'Bradesco',
-        nome: 'Retorno Bradesco Ocorrências',
-        descricao: 'Layout para tratamento de retornos com ocorrências bancárias e erros.',
-        tipo: 'Retorno Bancário',
-        status: 'Ativo',
-        versao: '1.1',
-        dataCriacao: '2023-04-25',
-        ultimaAtualizacao: '2024-06-05',
-      },
     ];
 
     // Simulação da busca de dados com um atraso para imitar uma requisição de rede
@@ -141,7 +99,7 @@ function LayoutsBanco() {
       <h1>Lista de Layouts de Banco</h1>
       <ul>
         {layouts.map((layout) => (
-          <li key={layout.id}> 
+          <li key={layout.id}>
             <h2>{layout.banco} - {layout.nome}</h2> {/* Adicionando o banco no título */}
             <p><strong>Descrição:</strong> {layout.descricao}</p>
             <p><strong>Tipo:</strong> {layout.tipo}</p>
@@ -152,7 +110,15 @@ function LayoutsBanco() {
             </p>
             <p><strong>Criação:</strong> {layout.dataCriacao}</p>
             <p><strong>Última Atualização:</strong> {layout.ultimaAtualizacao}</p>
-            <button onClick={() => alert(`Detalhes do layout: ${layout.nome} (${layout.banco})`)}>Ver Detalhes</button>
+            <button onClick={() => alert(`Detalhes do layout: ${layout.nome} (${layout.banco})`)}>Baixar</button>
+            {/*<ResumeButton
+              href="Curriculo/mpo_arquivos_layout_400P.pdf"
+              download="mpo_arquivos_layout_400P.pdf"
+              target="_blank"
+            >
+              Currículo
+            </ResumeButton>
+            */}
           </li>
         ))}
       </ul>
